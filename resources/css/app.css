@@ -1,0 +1,23 @@
+#librarieslist span {
+    float: left;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    height: auto;
+    padding: 0.5rem;
+    background: #EEEEEE;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#librarieslist span i {
+    position: absolute;
+    cursor: pointer;
+    top: 5px;
+    right: 5px;
+}
+
+#new_library {
+    display: none;
+}

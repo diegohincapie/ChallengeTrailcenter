@@ -1,0 +1,50 @@
+version: '3.3'
+networks:
+    laravel:
+
+services: 
+    main:
+        container_name: app
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        command: 'php artisan serve --host=0.0.0.0'
+        volumes:
+            - .:/app
+        ports:
+            - "8000:8000"
+        depends_on: 
+            - mysql
+            - initdb
+        networks:
+            - laravel
+
+    mysql:
+        image: mysql:8
+        container_name: mysql
+        restart: unless-stopped
+        environment: 
+            MYSQL_DATABASE: challenge_trailercentral
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: adminpwd
+            MYSQL_ROOT_PASSWORD: rootpwd
+            SERVICE_NAME: mysql
+        volumes:
+            - /mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+            - "33060:33060"
+        networks:
+            - laravel
+
+    initdb:
+        build: .
+        image: main
+        command: 'php artisan migrate'
+        depends_on: 
+            - mysql
+        networks:
+            - laravel
+
+volumes:
+    dbdata: {}

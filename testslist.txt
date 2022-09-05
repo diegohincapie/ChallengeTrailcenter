@@ -1,0 +1,10 @@
+APIS:
+1) autocomplete author
+2) list library
+3) autocomplete library
+4) list books
+5) store new book
+6) get info of book
+7) update a book
+8) delete a book
+MODELS:
