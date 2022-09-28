@@ -24,7 +24,7 @@ class LibraryController extends Controller
         if(isset($params['book'])) {
 
             if(!ctype_digit($params['book'])) {
-                return response()->json([], 500);        
+                return response()->json(['message' => 'Book id incorrect'], 500);        
             }
 
             $book = Book::find($request->get('book'));
@@ -60,7 +60,7 @@ class LibraryController extends Controller
         $params = $request->all();
 
         if(!isset($params['name']) || !isset($params['address'])) {
-            return response()->json([], 500);    
+            return response()->json(['message' => 'Please fill all fields'], 500);    
         }
 
         $library = new Library();
