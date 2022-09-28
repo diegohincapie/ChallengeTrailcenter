@@ -73,6 +73,10 @@ jQuery(document).ready(function() {
         ].join('&nbsp;/&nbsp;')
     }
 
+    window.librariesFormatter = function(value, row, index) {
+        return '<a class="libraries" href="javascript:void(0)" title="See Libraries"><i class="fa-solid fa-book"></i> See libraries</a>';
+    }
+
     window.booksEvents = {
         'click .libraries': function(e, value, row, index) {
             loadLibraries(value);
