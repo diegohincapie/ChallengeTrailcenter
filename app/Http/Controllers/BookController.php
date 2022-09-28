@@ -25,10 +25,12 @@ class BookController extends Controller
         )
         ->select(
             'books.id AS book_id',
+            'books.id AS book_id_b',
+            'books.id AS book_id_c',
             'books.name AS book_name',
             'books.year AS book_year',
             'authors.name AS author_name',
-            'authors.genre AS author_genre'
+            'authors.genre AS author_genre',
         )->get();
 
         return response()->json($books, 200);
@@ -45,13 +47,13 @@ class BookController extends Controller
         $params = $request->all();
 
         if(!isset($params['author-name']) || !isset($params['author-birth']) || !isset($params['author-genre']) || !isset($params['book-name']) || !isset($params['book-year']) || !isset($params['library'])) {
-            return response()->json([], 500);    
+            return response()->json(['message' => 'Please fill all fields'], 500);    
         }
         if(!BookController::validateDate($params['author-birth'])) {
-            return response()->json([], 500);    
+            return response()->json(['message' => 'Birthdate incorrect'], 500);    
         }
-        if(!ctype_digit($params['book-year']) || ($params['book-year']>date('Y'))) {
-            return response()->json([], 500);    
+        if(!ctype_digit($params['book-year']) || (!$params['book-year']>date('Y'))) {
+            return response()->json(['message' => 'Book date incorrect'], 500);    
         }
 
         $book = New Book();
@@ -101,13 +103,13 @@ class BookController extends Controller
         $params = $request->all();
 
         if(!isset($params['author-name']) || !isset($params['author-birth']) || !isset($params['author-genre']) || !isset($params['book-name']) || !isset($params['book-year']) || !isset($params['library'])) {
-            return response()->json([], 500);    
+            return response()->json(['message' => 'Please fill all fields'], 500);    
         }
         if(!BookController::validateDate($params['author-birth'])) {
-            return response()->json([], 500);    
+            return response()->json(['message' => 'Birthdate incorrect'], 500);    
         }
-        if(!ctype_digit($params['book-year']) || ($params['book-year']>date('Y'))) {
-            return response()->json([], 500);    
+        if(!ctype_digit($params['book-year']) || (!$params['book-year']>date('Y'))) {
+            return response()->json(['message' => 'Book date incorrect'], 500);    
         }
 
         $author = Author::where('name', $params['author-name'])->first();
@@ -149,6 +151,11 @@ class BookController extends Controller
 
     protected static function validateDate($date, $format = 'Y-m-d'){
         $d = \DateTime::createFromFormat($format, $date);
+        $cdate = date('Y-m-d');
+        if($cdate<$d->format('Y-m-d')){
+            return false;
+        }
+        
         return $d && $d->format($format) === $date;
     }
 }
