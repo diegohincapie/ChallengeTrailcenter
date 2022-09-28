@@ -13,7 +13,8 @@ jQuery('#save_form_button').click(function(event) {
                 addToast('Book saved successfully!', 'success');
             })
             .fail(function(response) {
-                addToast('An error has occurred, please review the information', 'danger');
+                message = response.responseJSON;
+                addToast('An error has occurred, please review the information: ' + message.message, 'danger');
             });
     } else {
         jQuery.ajax({
@@ -26,7 +27,8 @@ jQuery('#save_form_button').click(function(event) {
                 addToast('Book saved successfully!', 'success');
             })
             .fail(function(response) {
-                addToast('An error has occurred, please review the information', 'danger');
+                message = response.responseJSON;
+                addToast('An error has occurred, please review the information: ' + message.message, 'danger');
             });
     }
 
@@ -76,6 +78,7 @@ jQuery('#save_library').click(function(event) {
             jQuery('#librarieslist #library' + response.id + '  i').click(function(event) { jQuery('#librarieslist #library' + response.id).remove() });
         })
         .fail(function(response) {
-            addToast('An error has occurred, please review the information', 'danger');
+            message = response.responseJSON;
+            addToast('An error has occurred, please review the information: ' + message.message, 'danger');
         });
 });
