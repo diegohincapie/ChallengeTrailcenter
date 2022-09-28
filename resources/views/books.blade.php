@@ -41,6 +41,8 @@
                                 <th data-field="book_year">Book Year</th>
                                 <th data-field="author_name">Author Name</th>
                                 <th data-field="author_genre">Author Genre</th>
+                                <th data-field="book_id_b" data-formatter="librariesFormatter" data-events="booksEvents">Library name</th>
+                                <th data-field="book_id_c" data-formatter="librariesFormatter" data-events="booksEvents">Library address</th>
                                 <th data-field="book_id" data-formatter="booksFormatter" data-events="booksEvents">Actions</th>
                             </tr>
                         </thead>
